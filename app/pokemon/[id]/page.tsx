@@ -15,15 +15,30 @@ export default function PokemonDetails({ params }: { params: Promise<{ id: strin
 
   useEffect(() => {
     const fetchPokemon = async () => {
-      try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-        const data = await response.json();
-        setPokemon(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching Pokemon details:', error);
-        setLoading(false);
+
+      let isLocalStoragePokemon : boolean = false;
+
+      const localStoragePokemons : Pokemon[] = JSON.parse(localStorage.getItem("pokemons")!);
+        for(const pokemon of localStoragePokemons){
+          if(pokemon.name == pokemonId) {
+            isLocalStoragePokemon = true;
+            setPokemon(pokemon);
+            setLoading(false)
+          }
+        }
+
+      if(!isLocalStoragePokemon){
+        try {
+          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+          const data = await response.json();
+          setPokemon(data);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching Pokemon details:', error);
+          setLoading(false);
+        }
       }
+
     };
     fetchPokemon();
   }, [pokemonId]);

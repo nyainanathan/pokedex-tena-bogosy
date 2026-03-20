@@ -8,15 +8,27 @@ const Card = ({ name , url } : {name : string, url : string}) => {
 
   useEffect(() => {
     const fetchPokemon = async () => {
-      try {
-        const response = await fetch(url) ;
-        const data = await response.json() as Pokemon;
-        setPokemon(data)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching Pokemon:', error)
-        setLoading(false)
+
+      if(url.trim() != ""){
+        try {
+          const response = await fetch(url) ;
+          const data = await response.json() as Pokemon;
+          setPokemon(data)
+          setLoading(false)
+        } catch (error) {
+          console.error('Error fetching Pokemon:', error)
+          setLoading(false)
+        }
+      } else {
+        const localStoragePokemons : Pokemon[] = JSON.parse(localStorage.getItem("pokemons")!);
+        for(const pokemon of localStoragePokemons){
+          if(pokemon.name == name) {
+            setPokemon(pokemon);
+            setLoading(false)
+          }
+        }
       }
+
     }
 
     fetchPokemon()
@@ -42,7 +54,7 @@ const Card = ({ name , url } : {name : string, url : string}) => {
       </div>
 
       <div className="flex justify-center gap-2 mt-2 flex-wrap">
-        {pokemon.types.map((typeInfo) => {
+        {/* {pokemon.types.map((typeInfo) => {
           const type = typeInfo.type.name
           return (
             <span
@@ -52,7 +64,7 @@ const Card = ({ name , url } : {name : string, url : string}) => {
               {type}
             </span>
           )
-        })}
+        })} */}
       </div>
     </div>
   )
