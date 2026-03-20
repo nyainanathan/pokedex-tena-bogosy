@@ -2,7 +2,7 @@
 
 import { Pokemon } from '@/lib/Types';
 import { use, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 export default function PokemonDetails({ params }: { params: Promise<{ id: string }> }) {
 
@@ -47,9 +47,10 @@ export default function PokemonDetails({ params }: { params: Promise<{ id: strin
   if (!pokemon) return <div>Pokemon not found</div>;
 
   return (
-    <>
-      <div>
-        <div style={{ margin: 'auto', marginTop: '25ch', border: '2px solid gold', width: '20%', textAlign: 'center', backgroundColor: '#000814', color: 'white', boxShadow: '0px 0px 10px black', borderRadius: '20px' }}>
+      <div className='bg-[#0b1c34]'>
+        <div style={{ margin: 'auto', marginTop: '25ch', border: '2px solid gold', width: '20%', textAlign: 'center', backgroundColor: '#000814', color: 'white', boxShadow: '0px 0px 10px black', borderRadius: '20px' }}
+          className='flex flex-col items-center gap-5 p-4'
+        >
 
           <h1 className="text-4xl font-bold capitalize mb-4">{pokemon.name}</h1>
           <img
@@ -65,12 +66,11 @@ export default function PokemonDetails({ params }: { params: Promise<{ id: strin
 
           <button
             className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={() => router.push('/')}
+            onClick={() => redirect('/')}
           >
             Back to Home
           </button>
         </div>
       </div>
-    </>
   );
 }

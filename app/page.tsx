@@ -1,7 +1,7 @@
 'use client'
 
 import Card from "@/components/PokemonCard";
-import { Pokemon, PokemonAbility, PokemonType, PokemonTypesRes } from "@/lib/Types";
+import { Pokemon } from "@/lib/Types";
 import { useEffect, useState } from "react";
 
 interface fetchResult {
@@ -17,7 +17,7 @@ const CardsContainer = () => {
     const [displayCount, setDisplayCount] = useState(9);
     const [creatingMode, setCreatingMode] = useState(false);
 
-    const [pokeHeight, setPokeHeight] = useState<number>(67);
+    const [pokeHeight, setPokeHeight] = useState<number>(1);
     const [pokeName, setPokename] = useState<string>("");
     const [pokeWeight, setPokeWeight] = useState<number>(5);
 
@@ -149,7 +149,7 @@ const CardsContainer = () => {
 
                                 <div className="p-2"
                                 >
-                                    <label htmlFor="height">Height (cm) : </label>
+                                    <label htmlFor="height">Height (m) : </label>
                                     <input type="number" name="height" id="height" 
                                     value={pokeHeight} onChange={(e) => setPokeHeight(Number(e.target.value))}
                                     />

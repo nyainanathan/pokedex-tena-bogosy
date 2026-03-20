@@ -9,11 +9,7 @@ export default function RootLayout({ children } : {children : React.ReactNode}) 
       <title>Pokedex v2</title>
     </head>
     <body>
-      <div
-        className='flex flex-col items-center p-3'
-      >
-        <p className='text-4xl'>Pokedex tena bogosy be ;D</p>
-      </div>
+        <p className='text-4xl w-full text-center text-white bg-[#0b1c34] p-2'>Pokedex tena bogosy be ;D</p>
       {children}
     </body>
     </html>
