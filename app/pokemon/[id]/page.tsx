@@ -46,9 +46,6 @@ export default function PokemonDetails({ params }: { params: Promise<{ id: strin
           <div className="text-lg">
             <p><strong>Height:</strong> {pokemon.height / 10} m</p>
             <p><strong>Weight:</strong> {pokemon.weight / 10} kg</p>
-            <p><strong>Types:</strong> {pokemon.types.map((type) => type.type.name).join(', ')}</p>
-            <p><strong>Abilities:</strong> {pokemon.abilities.map((ability) => ability.ability.name).join(', ')}</p>
-            <p><strong>Base Experience:</strong> {pokemon.base_experience}</p>
           </div>
 
           <button
