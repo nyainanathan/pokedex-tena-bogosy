@@ -15,19 +15,19 @@ const CardsContainer = () => {
     const [searchParams, setSearchParams] = useState("");
     const [researchedPokemon, setResearchedPokemon] = useState<fetchResult[]>([]);
     const [displayCount, setDisplayCount] = useState(9);
-    const [creatingMode, setCreatingMode] = useState(true);
+    const [creatingMode, setCreatingMode] = useState(false);
 
     const [allTypes, setAllTypes] = useState<PokemonTypesRes[]>();
     const [allAbilities, setAllAbilities] = useState<PokemonAbility[]>();
 
-    const [pokeHeight, setPokeHeight] = useState<number>(0);
+    const [pokeHeight, setPokeHeight] = useState<number>(67);
     const [pokeName, setPokename] = useState<string>("");
-    const [pokeWeight, setPokeWeight] = useState<number>(0);
+    const [pokeWeight, setPokeWeight] = useState<number>(5);
 
     const clearCreatingVariables = () => {
-        setPokeHeight(0);
+        setPokeHeight(67);
         setPokename("");
-        setPokeWeight(0);
+        setPokeWeight(5);
     }
 
     const fetchAllPokemons = async () => {
@@ -53,6 +53,17 @@ const CardsContainer = () => {
         setDisplayCount(9); 
     }, [searchParams, pokemonList]);
 
+    const handleCreation = () => {
+
+        if(pokeName.trim() != ""){
+            alert("Pokemon created")
+            clearCreatingVariables();
+            setCreatingMode(false);
+        } else {
+            alert("Please set a name for the new pokemon!")
+        }
+    }
+
     const handleNext = () => {
         setDisplayCount((prev) => prev + 9);
     };
@@ -71,6 +82,7 @@ const CardsContainer = () => {
 
                 <button
                 className="bg-amber-100 p-3 rounded-2xl"
+                onClick={()=> setCreatingMode(true)}
                 >
                     Create
                 </button>
@@ -80,24 +92,55 @@ const CardsContainer = () => {
             {
                 creatingMode && (
                     <div className  ="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
-                        <div className ="bg-white p-6 rounded-2xl shadow-xl">
-                            <p>Let's create a new pokemon together</p>
-                            <p>Please insert the information about you pokemon</p>
+                        <div className ="bg-white p-10 rounded-2xl shadow-xl flex flex-col items-center gap-5">
+                            <p
+                                className="text-2xl"
+                            >Let's create a new pokemon together</p>
 
-                            <div>
-                                <label htmlFor="name">Name: </label>
-                                <input type="text" name="name" id="name" />
+                            <div className="flex flex-col gap-3">
+                                
+                                <div className="p-2">
+                                    <label htmlFor="name">Name: </label>
+                                    <input type="text" name="name" id="name"
+                                    value={pokeName} onChange={(e) => setPokename(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="p-2"
+                                >
+                                    <label htmlFor="height">Height (cm) : </label>
+                                    <input type="number" name="height" id="height" 
+                                    value={pokeHeight} onChange={(e) => setPokeHeight(Number(e.target.value))}
+                                    />
+                                </div>
+
+
+                                <div className="p-2" >
+                                    <label htmlFor="weight">Weight (kg): </label>
+                                    <input type="number" name="weight" id="weight" 
+                                    value={pokeWeight} onChange={(e) => setPokeWeight(Number(e.target.value))}
+                                    />
+                                </div>
                             </div>
 
-                            <div>
-                                <label htmlFor="height">Height: </label>
-                                <input type="number" name="height" id="height" />
-                            </div>
 
+                            <div className="flex gap-10">
+                                <button
+                                className="p-3 rounded-2xl bg-green-200"
+                                onClick={handleCreation}
+                                >
+                                    CREATE!
+                                </button>
 
-                            <div>
-                                <label htmlFor="weight">Weight: </label>
-                                <input type="number" name="weight" id="weight" />
+                                <button
+                                className="p-3 rounded-2xl bg-red-200"
+                                onClick={()=> {
+                                    clearCreatingVariables();
+                                    setCreatingMode(false);
+                                }}
+                                >
+                                    CANCEL!
+                                </button>
                             </div>
 
                         </div>
