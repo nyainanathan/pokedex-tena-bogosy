@@ -95,7 +95,9 @@ const CardsContainer = () => {
 
             localStorage.setItem("pokemons", JSON.stringify(inBrowserPokemons));
 
-            alert("Pokemon created")
+            fetchAllPokemons();
+
+            alert("Pokemon created");
             clearCreatingVariables();
             setCreatingMode(false);
         } else {
